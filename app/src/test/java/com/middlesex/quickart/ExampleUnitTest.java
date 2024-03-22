@@ -1,4 +1,4 @@
-package com.example.guardiangate;
+package com.middlesex.quickart;
 
 import org.junit.Test;
 
