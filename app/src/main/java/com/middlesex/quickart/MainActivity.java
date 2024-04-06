@@ -17,10 +17,13 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.middlesex.quickart.databinding.ActivityMainBinding;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
         ActivityMainBinding binding;
+        String personName,cardUID;
         String productId, producName;
         int productPrice;
         FirebaseDatabase db;
@@ -31,12 +34,22 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         FirebaseApp.initializeApp(this);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        List<CardDetails> cardDetailsList = new ArrayList<>();
+        CardDetails card1=new CardDetails();
+        card1.setPersonName("Authorised card");
+        card1.setCardUID("D3 84 B2 FC");
+        cardDetailsList.add(card1);
+        CardDetails card2=new CardDetails();
+        card2.setPersonName("Unauthorised card");
+        card2.setCardUID("83 8A B3 0E");
+        cardDetailsList.add(card2);
         List<Product> productList = new ArrayList<>();
         Product product1=new Product();
         product1.setProductId("www222");
@@ -49,8 +62,8 @@ public class MainActivity extends AppCompatActivity {
         product2.setProductPrice(4);
         productList.add(product2);
         Product product3 = new Product();
-        product3.setProductId("gfh37837");
-        product3.setProductName("Balloon");
+        product3.setProductId("yyy777");
+        product3.setProductName("comb");
         product3.setProductPrice(1);
         productList.add(product3);
         binding.button3.setOnClickListener(new View.OnClickListener() {
