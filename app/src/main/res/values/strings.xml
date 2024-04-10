@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Guardian Gate</string>
+    <string name="payment_successful">Payment Successful</string>
 </resources>
