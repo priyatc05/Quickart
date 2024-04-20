@@ -2,12 +2,21 @@ package com.middlesex.quickart;
 
 public class productDetails {
     String productName,productId;
-    int productPrice;
+    int productPrice, productQuantity;
 
-    public productDetails(String productName, String productId, int productPrice) {
+    public productDetails(String productName, String productId, int productPrice, int productQuantity) {
         this.productName = productName;
         this.productId = productId;
         this.productPrice = productPrice;
+        this.productQuantity = productQuantity;
+    }
+
+    public int getProductQuantity() {
+        return productQuantity;
+    }
+
+    public void setProductQuantity(int productQuantity) {
+        this.productQuantity = productQuantity;
     }
 
     public String getProductName() {
