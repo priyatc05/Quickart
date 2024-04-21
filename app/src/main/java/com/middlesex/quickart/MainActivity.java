@@ -56,15 +56,15 @@ public class MainActivity extends AppCompatActivity {
                                 Log.e("firebase", "Error getting data", task.getException());
                             }
                             else {
-                                prodList.get(productName).setProductId("klnkj");
-                                prodList.get(productName).setProductName(productName);
-                                prodList.get(productName).setProductPrice((Integer) task.getResult().getValue());
+
                                 if(prodList.containsKey(productName)){
                                     prodList.get(productName).setProductQuantity(prodList.get(productName).getProductQuantity()+1);
                                 }
                                 else{
-                                    prodList.get(productName).setProductQuantity(1);
+                                    productDetails x = new productDetails(productName, "klint", Integer.valueOf(String.valueOf(task.getResult().getValue())), 1);
+                                    prodList.put(productName, x);
                                 }
+                                Log.d("prodList", String.valueOf(prodList));
 //                                Log.d(productName, "price:"+String.valueOf(task.getResult().getValue()));
                             }
                         }
