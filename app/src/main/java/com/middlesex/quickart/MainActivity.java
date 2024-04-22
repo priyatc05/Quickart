@@ -4,8 +4,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -26,6 +29,7 @@ import java.util.ListIterator;
 import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
+    Button loginButton;
         ActivityMainBinding binding;
         FirebaseDatabase db = FirebaseDatabase.getInstance();
         DatabaseReference rfidReference = db.getReference("rfid_data");
@@ -78,6 +82,19 @@ public class MainActivity extends AppCompatActivity {
             public void onCancelled(DatabaseError error) {
                 // Failed to read value
                 Log.w("file", "Failed to read value.", error.toException());
+            }
+        });
+
+        loginButton=findViewById(R.id.loginButton);
+
+        loginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(MainActivity.this,home_screen.class);
+                startActivity(intent);
+
+                finish();
+
             }
         });
     }

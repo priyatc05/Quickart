@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="grey">#d8dee1</color>
-    <color name="blue">#27405e</color>
+    <color name="blue">#09A5A5</color>
+    <color name="red">#C81515</color>
+    <color name="green">#4CAF50</color>
+    <color name="cardviewgrey">#D3D3D3</color>
+    <color name="black">#000000</color>
+    <color name="white">#FFFFFF</color>
+
+
+
+
 
 </resources>

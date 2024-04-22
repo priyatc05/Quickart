@@ -8,9 +8,11 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
+        android:gravity="center"
         android:layout_width="350dp"
         android:layout_height="100dp"
         android:backgroundTint="#4CAF50"
+        android:translationX="25dp"
         app:cardCornerRadius="20dp"
         app:cardElevation="6dp">
 
@@ -19,11 +21,13 @@
             android:layout_height="match_parent"
             android:gravity="center"
             android:orientation="horizontal"
-            android:padding="16dp">
+            android:padding="16dp"
+            android:translationX="50dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:gravity="center"
                 android:text="Payment Successful"
                 android:textColor="#FFFFFF"
                 android:textSize="30sp"
@@ -42,7 +46,6 @@
 
     <Button
         android:id="@+id/btnBackToHomepage"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/cardView"
         android:layout_alignParentStart="true"
@@ -56,6 +59,7 @@
         android:text="Back to homepage"
         android:textColor="#CCCCCC"
         android:textSize="16sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:layout_width="50dp"/>
 
 </RelativeLayout>

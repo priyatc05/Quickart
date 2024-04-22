@@ -1,7 +1,10 @@
 package com.middlesex.quickart;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
@@ -21,6 +24,8 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.HashMap;
 
 public class home_screen extends AppCompatActivity {
+
+    Button btn_cart;
 
     FirebaseDatabase db = FirebaseDatabase.getInstance();
     DatabaseReference rfidReference = db.getReference("rfid_data");
@@ -79,5 +84,15 @@ public class home_screen extends AppCompatActivity {
                 Log.w("file", "Failed to read value.", error.toException());
             }
         });
+
+        btn_cart=findViewById(R.id.btn_cart);
+        btn_cart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(home_screen.this,list_page.class);
+                startActivity(intent);
+            }
+        });
+
     }
 }
