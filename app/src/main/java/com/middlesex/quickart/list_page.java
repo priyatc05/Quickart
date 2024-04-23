@@ -20,6 +20,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
@@ -28,6 +29,7 @@ public class list_page extends AppCompatActivity {
 
     Button button_proceed_to_payment;
     LinearLayout productListContainer;
+    Boolean flag = true;
 
     FirebaseDatabase firebaseDatabase;
     DatabaseReference productDetailsRef;
@@ -41,21 +43,31 @@ public class list_page extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-//        prodList.clear();
-
+//  prodList.clear();
         super.onCreate(savedInstanceState);
         rfidReference.addValueEventListener(new ValueEventListener() {
+
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 productListContainer.removeAllViews();
+                for(productDetails val: prodList.values()){
+                    addProductRow(val.getProductName(), val);
+                }
+                prodList.clear();
+
+//                prodList.clear();
                 Log.d("reached", "reached");
                 productViewsMap.clear();
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated.
                 HashMap<String, HashMap> value = (HashMap<String, HashMap>) dataSnapshot.getValue();
+
                 for(HashMap.Entry entry: value.entrySet()){
+
+
                     HashMap itr = (HashMap) entry.getValue();
                     String productName = itr.get("card_data").toString().split("-")[0];
+
                     prodReference.child(productName).child("price").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
 
                         @Override
@@ -63,13 +75,13 @@ public class list_page extends AppCompatActivity {
                             if (!task.isSuccessful()) {
                                 Log.e("firebase", "Error getting data", task.getException());
                             }
-                            else {
+                            else { //milk, comb, lipstick, milk, comb     //string, productetails
 
                                 if(prodList.containsKey(productName)){
                                     prodList.get(productName).setProductQuantity(prodList.get(productName).getProductQuantity()+1);
                                 }
                                 else{
-                                    productDetails x = new productDetails(productName, "klint", Integer.valueOf(String.valueOf(task.getResult().getValue())), 1);
+                                    productDetails x = new productDetails(productName, "iohbibuhuy", Integer.valueOf(String.valueOf(task.getResult().getValue())), 1);
                                     prodList.put(productName, x);
                                 }
                                 Log.d("prodList", String.valueOf(prodList));
@@ -77,15 +89,13 @@ public class list_page extends AppCompatActivity {
                             }
                         }
                     });
+
 //                    Log.d(productName, "price:" +prodReference.child(productName).child("price").get());
                 }
                 Log.d("prodList", String.valueOf(prodList.size()));
 
-                for(productDetails val: prodList.values()){
-                    addProductRow(val.getProductName(), val);
-                }
 
-                prodList.clear();
+//                prodList.clear();
             }
 
             @Override
@@ -190,7 +200,23 @@ public class list_page extends AppCompatActivity {
         // Set an OnClickListener for the delete button
         deleteButton.setOnClickListener(v -> {
             // Remove the product from the Firebase Realtime Database
-            productDetailsRef.child(productName).removeValue();
+            Query prodDel = rfidReference.orderByChild("card_data").equalTo(productName);
+            prodDel.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    for(DataSnapshot prod: snapshot.getChildren()){
+                        prod.getRef().removeValue();
+                    }
+                    finish();
+                    startActivity(getIntent());
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    Log.e("cancelled", "cancelled Delete: ", error.toException());
+                }
+            });
+
         });
 
         // Add the TextViews and the delete button to the product row
