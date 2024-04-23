@@ -43,16 +43,21 @@ public class list_page extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+
 //  prodList.clear();
         super.onCreate(savedInstanceState);
         rfidReference.addValueEventListener(new ValueEventListener() {
 
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                int total=0;
                 productListContainer.removeAllViews();
                 for(productDetails val: prodList.values()){
                     addProductRow(val.getProductName(), val);
+                    total+= val.getProductQuantity()*val.getProductPrice();
                 }
+
                 prodList.clear();
 
 //                prodList.clear();
@@ -141,7 +146,9 @@ public class list_page extends AppCompatActivity {
         button_proceed_to_payment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 Intent intent = new Intent(list_page.this, Payment_screen.class);
+//                intent.putExtra("total", total);
                 startActivity(intent);
             }
         });
