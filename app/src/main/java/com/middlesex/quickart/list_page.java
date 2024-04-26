@@ -57,6 +57,7 @@ public class list_page extends AppCompatActivity {
                     addProductRow(val.getProductName(), val);
                     total+= val.getProductQuantity()*val.getProductPrice();
                 }
+                button_proceed_to_payment.setText("Your total: "+total+" Proceed to payment");
 
                 prodList.clear();
 
